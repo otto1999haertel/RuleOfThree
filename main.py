@@ -23,13 +23,23 @@ def _find_non_number_index(lst):
             return i
     return -1 
 
+def _solve_equation(dividend_line, divisor_line, index_variable_to_solve):
+    index_for_calc=0
+    if(index_variable_to_solve==0):
+        index_for_calc=1
+    faktor=dividend_line[index_for_calc]/divisor_line[index_for_calc]
+    res = dividend_line[index_variable_to_solve]/faktor
+    return res
+
 def _calculate_solution(lineA, lineB):
     variable_to_solve_foundA = _find_non_number_index(lineA)
     variable_to_solve_foundB = _find_non_number_index(lineB)
     if(variable_to_solve_foundA>-1):
-        print("Found")
+        res = _solve_equation(lineB,lineA,variable_to_solve_foundA)
+        return res
     if(variable_to_solve_foundB>-1):
-        print("Found") 
+        res = _solve_equation(lineA,lineB,variable_to_solve_foundB)
+        return res
     return 0
 
 
@@ -43,4 +53,4 @@ if __name__ == '__main__':
     second_line=input()
     variable_to_solve_found, first_line=_validate_input(first_line,False)
     variable_to_solve_found,second_line=_validate_input(second_line,variable_to_solve_found)
-    print("Ergebnis " + _calculate_solution(first_line,second_line))
+    print("Ergebnis " + str(_calculate_solution(first_line,second_line)))
