@@ -1,5 +1,12 @@
 from collections import Counter 
-import numpy as np
+
+def _is_number(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
+    
 def _validate_input(input, variable_to_solve_found):
     if(Counter(input)['=']!=1):
         raise Exception("Input String does not contain =")
@@ -9,9 +16,9 @@ def _validate_input(input, variable_to_solve_found):
             raise Exception("Input sides should contain number but does not")
         else:
             variable_to_solve_found=True
-        if(str.isdigit(splitted_input[0])==True):
+        if(_is_number(splitted_input[0])==True):
             splitted_input = [int(splitted_input[0]),splitted_input[1]]
-        if(str.isdigit(splitted_input[1])==True):
+        if(_is_number(splitted_input[1])==True):
             splitted_input = [splitted_input[0],int(splitted_input[1])]
     else:
         splitted_input = [int(splitted_input[0]),int(splitted_input[1])]
@@ -19,7 +26,7 @@ def _validate_input(input, variable_to_solve_found):
 
 def _find_non_number_index(lst):
     for i, value in enumerate(lst):
-        if not str(value).isdigit():
+        if not _is_number(value):
             return i
     return -1 
 
